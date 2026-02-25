@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>leaflet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "JetBrains Mono", monospace;
+            background-color: #000;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 450px;
+            background-color: white;
+            margin: 20px auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .main {
+            background-color: rgb(255, 255, 255);
+            height: 270px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .logo {
+            height: 97%;
+            object-fit: contain;
+        }
+        
+        .block {
+            display: flex;
+            height: 600px;
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+        }
+        
+        .block-child {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            height: 100px;
+        }
+        
+        .logo2 {
+            width: 97%;
+            height: 97%;
+            object-fit: contain;
+        }
+        
+        .block-child2 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(0, 0, 0);
+            width: 440px;
+            height: 40px;
+            border-radius: 20px;
+            margin: 0 auto;
+        }
+        
+        hr {
+            border: none; 
+            background-color: rgb(255, 255, 255); 
+            height: 4px;
+            border-radius: 4px; 
+            width: 20%;
+        }
+        
+        .hexc {
+            font-family: "JetBrains Mono", monospace;
+            font-weight: 700;
+            font-size: 28px;
+            color: white;
+            letter-spacing: 4px;
+            line-height: 1;
+        }
+        
+        .block-child3 {
+            display: flex;
+            margin-top: 12px;
+            background-color: rgb(0, 0, 0);
+            width: 440px;
+            height: 417px;
+            border-radius: 20px;
+            justify-content: center;
+            align-items: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .qr {
+            border-radius: 20px;
+            width: 90%;
+            height: 90%;
+            object-fit: cover;
+        }
+        
+        /* Затемненный фон */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9998;
+            background-color: #000;
+        }
+        
+        /* Контейнер для терминала */
+        .terminal-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;  /* Пропускаем клики через контейнер */
+        }
+        
+        /* Кликабельная область только на тексте */
+        .clickable-text {
+            pointer-events: auto;  /* Возвращаем клики для текста */
+            cursor: pointer;
+            display: inline-block;
+            padding: 20px;
+        }
+        
+        /* Стили терминальной строки */
+        .terminal-line {
+            color: #4a6fa5;
+            font-size: 25px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            font-family: "JetBrains Mono", monospace;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .prompt {
+            color: #4a6fa5;
+            font-size: 25px;
+            opacity: 0.9;
+        }
+        
+        .command {
+            color: #4a6fa5;
+        }
+        
+        .cursor {
+            color: #4a6fa5;
+            font-size: 35px;
+            animation: blink 1s infinite;
+            font-weight: 400;
+            margin-left: 5px;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        .corner-tl {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            color: #1a2a3a;
+            font-size: 14px;
+            z-index: 10000;
+            font-family: "JetBrains Mono", monospace;
+            pointer-events: none;
+        }
+        
+        .corner-br {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            color: #1a2a3a;
+            font-size: 14px;
+            z-index: 10000;
+            font-family: "JetBrains Mono", monospace;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="corner-tl">[root@localhost] $</div>
+    <div class="corner-br">v1.0</div>
+
+    <div class="overlay"></div>
+
+    <div class="content">
+        <div class="main">
+            <img src="Group 38.svg" class="logo" alt="Logo 1">   
+        </div>
+        
+        <div class="block">
+            <div class="block-child">
+                <img src="Group 39.svg" class="logo2" alt="Logo 2">
+            </div>
+            
+            <div class="block-child2">
+                <hr><h1 class="hexc">0<span style="position: relative; top: -2px;">x</span>0000</h1><hr>
+            </div>
+            
+            <div class="block-child3">
+                <img src="image 1.png" class="qr" alt="QR Code">
+            </div>
+        </div>
+    </div>
+    
+    <div class="terminal-container">
+        <div class="clickable-text" id="downloadTrigger">
+            <div class="terminal-line">
+                <span class="prompt">>_</span>
+                <span class="command">download leaflet.png? (y/n)</span>
+                <span class="cursor">_</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('downloadTrigger').addEventListener('click', function() {
+            const element = document.querySelector('.content');
+            
+            const originalStyles = {
+                width: element.style.width,
+                transform: element.style.transform
+            };
+            
+            element.style.width = '450px';
+            element.style.transform = 'none';
+            document.body.style.overflow = 'auto';
+            
+            html2canvas(element, {
+                scale: 2,
+                backgroundColor: '#ffffff',
+                logging: false,
+                allowTaint: true,
+                useCORS: true,
+                windowWidth: 450,
+                onclone: function(clonedDoc) {
+                    const clonedElement = clonedDoc.querySelector('.content');
+                    if (clonedElement) {
+                        clonedElement.style.width = '450px';
+                        clonedElement.style.transform = 'none';
+                    }
+                    // Удаляем все наложенные элементы из клона
+                    const overlay = clonedDoc.querySelector('.overlay');
+                    const terminal = clonedDoc.querySelector('.terminal-container');
+                    const tl = clonedDoc.querySelector('.corner-tl');
+                    const br = clonedDoc.querySelector('.corner-br');
+                    if (overlay) overlay.remove();
+                    if (terminal) terminal.remove();
+                    if (tl) tl.remove();
+                    if (br) br.remove();
+                }
+            }).then(canvas => {
+                element.style.width = originalStyles.width;
+                element.style.transform = originalStyles.transform;
+                document.body.style.overflow = 'hidden';
+                
+                const link = document.createElement('a');
+                link.download = 'leaflet.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            }).catch(error => {
+                console.error('Ошибка:', error);
+                alert('Не удалось создать скриншот');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+    </script>
+</body>
+</html>

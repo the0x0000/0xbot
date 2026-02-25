@@ -1,0 +1,16 @@
+.env
+.env.local
+
+users.json
+*.db
+
+generated_leaflets/
+backups/
+__pycache__/
+*.pyc
+
+*.log
+bot_monitor.log
+
+.vscode/
+.idea/
