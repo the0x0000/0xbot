@@ -203,21 +203,21 @@ def handle_interview(message):
         send_pretty_log("", log_data)
         
         box = f"┌{'─'*40}┐\n"
-        box += f"│{'РЕГИСТРАЦИЯ ЗАВЕРШЕНА':^40}│\n"
+        box += f"│{'РЕГИСТРАЦИЯ ЗАВЕРШЕНА'}\n"
         box += f"├{'─'*40}┤\n"
-        box += f"│ Hex ID: {hex_id:<32} │\n"
+        box += f"│ Hex ID: {hex_id}\n"
         box += f"├{'─'*40}┤\n"
-        box += f"│{'Ответы:':<38} │\n"
+        box += f"│{'Ответы:'}\n"
         
         for i, answer in enumerate(user["answers"], 1):
             if len(answer) > 35:
                 answer_display = answer[:32] + "..."
             else:
                 answer_display = answer
-            box += f"│ {i}. {answer_display:<35} │\n"
+            box += f"│ {i}. {answer_display}\n"
         
         box += f"├{'─'*40}┤\n"
-        box += f"│ Используй кнопки ниже          │\n"
+        box += f"│ Используй кнопки ниже          \n"
         box += f"└{'─'*40}┘"
         
         bot.send_message(message.chat.id, f"```{box}```", parse_mode='Markdown',

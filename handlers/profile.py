@@ -17,20 +17,20 @@ def show_profile(message):
     has_chat = user.get("chat_access", False)
     
     profile = f"┌{'─'*40}┐\n"
-    profile += f"│{'ЛИЧНЫЙ КАБИНЕТ':^40}│\n"
+    profile += f"│{'ЛИЧНЫЙ КАБИНЕТ':^40}\n"
     profile += f"├{'─'*40}┤\n"
-    profile += f"│ Тег: {user.get('user_tag', 'Без тега'):<32} │\n"
-    profile += f"│ Hex: {user.get('hex', 'нет'):<34} │\n"
-    profile += f"│ Дата: {user['created']:<33} │\n"
-    profile += f"│ Статус: {user['status']:<31} │\n"
-    profile += f"│ Приглашено: {invited_count:<27} │\n"
-    profile += f"│ Листовок: {leaflet_count:<28} │\n"
-    profile += f"│ Чат: {'✅' if has_chat else '❌'}{'':<29} │\n"
+    profile += f"│ Тег: {user.get('user_tag', 'Без тега')}\n"
+    profile += f"│ Hex: {user.get('hex', 'нет')}\n"
+    profile += f"│ Дата: {user['created']} \n"
+    profile += f"│ Статус: {user['status']}\n"
+    profile += f"│ Приглашено: {invited_count:}\n"
+    profile += f"│ Листовок: {leaflet_count}\n"
+    profile += f"│ Чат: {'✅' if has_chat else '❌'}{''}\n"
     
     if user["inviter"].startswith("0x"):
-        profile += f"│ Пригласил: {user['inviter']:<28} │\n"
+        profile += f"│ Пригласил: {user['inviter']}\n"
     else:
-        profile += f"│ Пригласил: {'none':<28} │\n"
+        profile += f"│ Пригласил: {'none'}\n"
     
     profile += f"└{'─'*40}┘"
     
