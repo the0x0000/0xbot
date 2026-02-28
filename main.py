@@ -12,7 +12,7 @@ from handlers.admin_commands import (
 )
 from handlers.chat_access import request_chat_access, handle_chat_decision
 
-#КОМАНДЫ 
+#КОМАНДЫ ...
 @bot.message_handler(commands=['start', 'cancel'])
 def start_cmd(message):
     start_command(message)
