@@ -20,4 +20,4 @@ jobs:
           script: |
             cd /root/githubprojects/0xbot
             git pull origin main
-            # Здесь можно добавить команды для перезапуска (например, pm2 restart app или systemctl restart my-service)
+            systemctl restart 0xbot
