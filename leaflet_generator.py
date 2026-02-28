@@ -8,7 +8,7 @@ from datetime import datetime
 
 def create_leaflet_html(hex_id, encrypt_func):
     encrypted = encrypt_func(hex_id)
-    url = f"https://halareka.github.io/0?ref={encrypted}"
+    url = f"https://0xhome.online?ref={encrypted}"
     
     qr = qrcode.QRCode(
         version=5,
