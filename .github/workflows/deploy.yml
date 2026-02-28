@@ -1,0 +1,23 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main # Укажи свою основную ветку (может быть master)
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Запуск деплоя по SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          # Если используешь SSH-ключ вместо пароля, закомментируй строку выше и раскомментируй строку ниже:
+          # key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd /root/githubprojects/0xbot
+            git pull origin main
+            # Здесь можно добавить команды для перезапуска (например, pm2 restart app или systemctl restart my-service)
