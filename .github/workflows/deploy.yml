@@ -18,6 +18,6 @@ jobs:
           # Если используешь SSH-ключ вместо пароля, закомментируй строку выше и раскомментируй строку ниже:
           # key: ${{ secrets.SSH_KEY }}
           script: |
-            cd /githubprojects/0xbot
+            cd /root/githubprojects/0xbot
             git pull origin main
             # Здесь можно добавить команды для перезапуска (например, pm2 restart app или systemctl restart my-service)
