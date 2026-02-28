@@ -16,7 +16,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           # Если используешь SSH-ключ вместо пароля, закомментируй строку выше и раскомментируй строку ниже:
-          # key: ${{ secrets.SSH_KEY }}
+          # keey: ${{ secrets.SSH_KEY }}
           script: |
             cd /root/githubprojects/0xbot
             git pull origin main
