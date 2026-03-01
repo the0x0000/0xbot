@@ -20,5 +20,4 @@ jobs:
           script: |
             cd /root/githubprojects/0xbot
             git pull origin main
-            #тест
             systemctl restart 0xbot
