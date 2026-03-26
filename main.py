@@ -1,4 +1,4 @@
-from bot_instance import bot, ADMIN_ID
+from bot_instance import bot, ADMIN_IDS
 import atexit
 import time
 from utils.logger import send_pretty_log
@@ -76,7 +76,7 @@ def buttons_handler(message):
         start_registration(message)
 
 #ОТВЕТЫ АДМИНА
-@bot.message_handler(func=lambda m: m.reply_to_message and m.from_user.id == ADMIN_ID)
+@bot.message_handler(func=lambda m: m.reply_to_message and m.from_user.id in ADMIN_IDS)
 def admin_reply_handler(message):
     handle_admin_reply(message)
 

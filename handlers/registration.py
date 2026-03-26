@@ -1,4 +1,4 @@
-from bot_instance import bot, ADMIN_ID
+from bot_instance import bot, ADMIN_IDS
 from time import time
 from datetime import datetime
 from utils.database import load, save, new_hex, update_invited_stats
@@ -128,12 +128,16 @@ def handle_interview(message):
         
         hex_id = user.get("hex", "нет")
         
-        bot.send_message(ADMIN_ID,
-            f"📨 СООБЩЕНИЕ ОТ {user_tag} (hex: {hex_id})\n"
-            f"ID: {user_id}\n\n"
-            f"{message.text}\n\n"
-            f"---\n"
-            f"Ответь на это сообщение, чтобы отправить ответ пользователю.")
+        for _admin in ADMIN_IDS:
+            try:
+                bot.send_message(_admin,
+                    f"📨 СООБЩЕНИЕ ОТ {user_tag} (hex: {hex_id})\n"
+                    f"ID: {user_id}\n\n"
+                    f"{message.text}\n\n"
+                    f"---\n"
+                    f"Ответь на это сообщение, чтобы отправить ответ пользователю.")
+            except Exception:
+                continue
         
         bot.send_message(message.chat.id,
             "[ADMIN] Сообщение отправлено. Ожидай ответа.",

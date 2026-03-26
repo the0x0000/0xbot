@@ -1,4 +1,4 @@
-from bot_instance import bot, ADMIN_ID, CHAT_LINK
+from bot_instance import bot, ADMIN_IDS, CHAT_LINK
 from utils.database import load, save
 from utils.logger import send_pretty_log
 from handlers.keyboards import main_keyboard
@@ -39,14 +39,18 @@ def request_chat_access(message):
     )
     keyboard.add(approve_btn, reject_btn)
     
-    bot.send_message(
-        ADMIN_ID,
-        f"🔔 ЗАПРОС ДОСТУПА В ЧАТ\n\n"
-        f"Пользователь: {user.get('user_tag', 'Без тега')}\n"
-        f"Hex: {user.get('hex')}\n"
-        f"ID: {user_id}",
-        reply_markup=keyboard
-    )
+    for _admin in ADMIN_IDS:
+        try:
+            bot.send_message(
+                _admin,
+                f"🔔 ЗАПРОС ДОСТУПА В ЧАТ\n\n"
+                f"Пользователь: {user.get('user_tag', 'Без тега')}\n"
+                f"Hex: {user.get('hex')}\n"
+                f"ID: {user_id}",
+                reply_markup=keyboard
+            )
+        except Exception:
+            continue
     
     bot.send_message(
         message.chat.id,

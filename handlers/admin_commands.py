@@ -1,4 +1,4 @@
-from bot_instance import bot, ADMIN_ID
+from bot_instance import bot, ADMIN_IDS
 from utils.database import load, save
 from utils.logger import send_pretty_log
 from datetime import datetime
@@ -7,7 +7,7 @@ import shutil
 
 def admin_required(func):
     def wrapper(message):
-        if message.from_user.id != ADMIN_ID:
+        if message.from_user.id not in ADMIN_IDS:
             bot.reply_to(message, "⛔ Доступ запрещён.")
             return
         return func(message)

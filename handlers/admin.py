@@ -1,4 +1,4 @@
-from bot_instance import bot, ADMIN_ID
+from bot_instance import bot, ADMIN_IDS
 from utils.database import load, save
 from utils.logger import send_pretty_log
 from handlers.keyboards import main_keyboard, start_keyboard
@@ -47,7 +47,7 @@ def contact_admin_handler(message):
         reply_markup=None)
 
 def admin_send_command(message):
-    if message.from_user.id != ADMIN_ID:
+    if message.from_user.id not in ADMIN_IDS:
         return
     
     parts = message.text.split(maxsplit=1)
