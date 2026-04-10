@@ -20,7 +20,7 @@ def start_cmd(message):
 @bot.message_handler(commands=['send'])
 def send_cmd(message):
     admin_send_command(message)
-
+//тест
 @bot.message_handler(commands=['users'])
 def users_cmd(message):
     users_list(message)
